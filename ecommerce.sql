@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Feb 27, 2024 alle 17:47
--- Versione del server: 10.4.27-MariaDB
--- Versione PHP: 8.2.0
+-- Creato il: Feb 27, 2024 alle 22:30
+-- Versione del server: 10.4.32-MariaDB
+-- Versione PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -37,6 +37,14 @@ CREATE TABLE `ordine` (
   `id_utente` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dump dei dati per la tabella `ordine`
+--
+
+INSERT INTO `ordine` (`id`, `data_ordine`, `descrizione`, `latitudine`, `longitudine`, `id_stato`, `id_utente`) VALUES
+(23, '27-02-2024', 'Ordine di Francesco', 40.855391, 14.266886, 1, 1),
+(25, '27-02-2024', 'Ordine di Christian', 40.855391, 14.266886, 1, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -49,6 +57,18 @@ CREATE TABLE `ordine_prodotto` (
   `id_prodotto` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dump dei dati per la tabella `ordine_prodotto`
+--
+
+INSERT INTO `ordine_prodotto` (`quantita`, `id_ordine`, `id_prodotto`) VALUES
+(5, 23, 1),
+(2, 23, 2),
+(7, 23, 3),
+(5, 25, 1),
+(6, 25, 2),
+(7, 25, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -58,17 +78,18 @@ CREATE TABLE `ordine_prodotto` (
 CREATE TABLE `prodotto` (
   `id` bigint(20) NOT NULL,
   `descrizione` varchar(255) DEFAULT NULL,
-  `nome` varchar(255) DEFAULT NULL
+  `nome` varchar(255) DEFAULT NULL,
+  `giacenza` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dump dei dati per la tabella `prodotto`
 --
 
-INSERT INTO `prodotto` (`id`, `descrizione`, `nome`) VALUES
-(1, 'Ottima tastiera per gaming', 'Tastiera wirelass'),
-(2, 'Ottimo mouse per gaming', 'Mouse wirelass'),
-(3, 'Ottime cuffie per gaming', 'Cuffie wirelass');
+INSERT INTO `prodotto` (`id`, `descrizione`, `nome`, `giacenza`) VALUES
+(1, 'Ottima tastiera per gaming', 'Tastiera wirelass', 10),
+(2, 'Ottimo mouse per gaming', 'Mouse wirelass', 12),
+(3, 'Ottime cuffie per gaming', 'Cuffie wirelass', 15);
 
 -- --------------------------------------------------------
 
@@ -111,7 +132,8 @@ CREATE TABLE `utente` (
 --
 
 INSERT INTO `utente` (`id`, `cognome`, `email`, `eta`, `indirizzo`, `nome`) VALUES
-(1, 'Aversano', 'francesco@mail.com', 26, 'Via Aversa 12', 'Francesco');
+(1, 'Aversano', 'francesco@mail.com', 26, 'Via Aversa 12', 'Francesco'),
+(2, 'Cozzolino', 'Christian@email.com', 21, 'Via Napoli 11', 'Christian');
 
 --
 -- Indici per le tabelle scaricate
@@ -158,7 +180,7 @@ ALTER TABLE `utente`
 -- AUTO_INCREMENT per la tabella `ordine`
 --
 ALTER TABLE `ordine`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT per la tabella `prodotto`
@@ -176,7 +198,7 @@ ALTER TABLE `stato`
 -- AUTO_INCREMENT per la tabella `utente`
 --
 ALTER TABLE `utente`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Limiti per le tabelle scaricate

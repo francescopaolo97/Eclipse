@@ -1,11 +1,15 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class OrdineProdotto {
 
@@ -14,6 +18,7 @@ public class OrdineProdotto {
 	
 	private int quantita;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "id_ordine")
 	@MapsId("idOrdine")

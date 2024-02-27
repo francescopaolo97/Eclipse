@@ -2,12 +2,16 @@ package com.example.demo.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class Prodotto {
 
@@ -16,8 +20,9 @@ public class Prodotto {
 	private long id;
 	private String nome;
 	private String descrizione;
+	private int giacenza;
 	
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "prodotto")
 	private List<OrdineProdotto> listaOrdineProdotto;
 
@@ -63,5 +68,13 @@ public class Prodotto {
 
 	public void setListaOrdineProdotto(List<OrdineProdotto> listaOrdineProdotto) {
 		this.listaOrdineProdotto = listaOrdineProdotto;
+	}
+
+	public int getGiacenza() {
+		return giacenza;
+	}
+
+	public void setGiacenza(int giacenza) {
+		this.giacenza = giacenza;
 	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,7 +33,7 @@ public class Ordine {
 	@JoinColumn(name = "id_stato")
 	private Stato stato;
 	
-	@OneToMany(mappedBy = "ordine")
+	@OneToMany(mappedBy = "ordine", cascade = CascadeType.ALL)
 	private List<OrdineProdotto> listaOrdineProdotto;
 
 	public Ordine() {
